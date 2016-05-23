@@ -3,21 +3,33 @@
 	<depends on='BEASTLabs' atleast='1.5.2'/>
 
 
+<!-- create graph of trace using CanvasJS library -->
 	<addonapp description="MiniTracerCanvasJS"
               class="examples.MiniTracerCanvasJS"
               args=""
 	/>
 
+<!-- create graph of trace using CanvasJS library -->
+<!--
 	<addonapp description="MiniTracerClassic"
               class="examples.MiniTracerClassic"
               args=""
 	/>
-	
+-->
+
+<!-- create graph of trace ugins Plotly library -->
 	<addonapp description="MiniTracerPlotly"
               class="examples.MiniTracerPlotly"
               args=""
 	/>
+	
+<!-- create table of trace stats -->
+	<addonapp description="Trace Statistics"
+              class="examples.TraceToTable"
+              args=""
+	/>
 
+<!-- create demographic reconstruction using Plotly library -->
 	<addonapp description="EBSPAnalyser"
               class="beast.app.tools.EBSPAnalyserApp"
               args=""
