@@ -91,7 +91,7 @@ public class MiniTracerCanvasJS extends Runnable {
 		
 		
 		// write html file in package dir + "/js/minitracer.html"
-		String jsPath = Application.getPackagePath("BeastFX.addon.jar") + "js";
+		String jsPath = Application.getPackagePath("BeastApp.addon.jar") + "js";
         FileWriter outfile = new FileWriter(jsPath + "/minitracer.html");
         outfile.write(html);
         outfile.close();

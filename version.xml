@@ -1,0 +1,26 @@
+<addon name='BeastApp' version='0.0.1'>
+	<depends on='beast2' atleast='2.4.1'/>
+	<depends on='BEASTLabs' atleast='1.5.2'/>
+
+
+	<addonapp description="MiniTracerCanvasJS"
+              class="examples.MiniTracerCanvasJS"
+              args=""
+	/>
+
+	<addonapp description="MiniTracerClassic"
+              class="examples.MiniTracerClassic"
+              args=""
+	/>
+	
+	<addonapp description="MiniTracerPlotly"
+              class="examples.MiniTracerPlotly"
+              args=""
+	/>
+
+	<addonapp description="EBSPAnalyser"
+              class="beast.app.tools.EBSPAnalyserApp"
+              args=""
+              icon="beast/app/tools/images/EBSPAnalyser.png"
+            />
+</addon>

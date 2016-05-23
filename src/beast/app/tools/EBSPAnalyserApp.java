@@ -197,7 +197,7 @@ public class EBSPAnalyserApp extends beast.app.tools.EBSPAnalyser {
         		"</html>";
         
 		// write html file in package dir + "/js/minitracer.html"
-		String jsPath = Application.getPackagePath("BeastFX.addon.jar") + "js";
+		String jsPath = Application.getPackagePath("BeastApp.addon.jar") + "js";
 		String EBSPFile = jsPath + "/EBSP.html";
         FileWriter outfile = new FileWriter(EBSPFile);
         outfile.write(html);
