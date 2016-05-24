@@ -41,9 +41,11 @@ public class TraceToTable extends Runnable {
 			burnin = 0;
 		}
 		
+		// get data from the trace
 		LogAnalyser traces = new LogAnalyser(tracelog.getAbsolutePath(), burnin, false, true);
-
 		List<String> labels = traces.getLabels();
+		
+		// create HTML table with results
 		StringBuilder b = new StringBuilder();
 		b.append("<table>\n");
         b.append("<tr>" + formatHCell("item") +
@@ -65,7 +67,7 @@ public class TraceToTable extends Runnable {
 		b.append("</table>\n");
 
 		
-		// create CanvasJS chart http://canvasjs.com/
+		// create HTML file with results
 		String html = "<html>\n" + 
 		"<title>BEAST " + new BEASTVersion2().getVersionString() + ": miniTracer</title>\n" +
 		"<head>  \n" +
