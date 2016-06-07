@@ -1,32 +1,15 @@
 package beast.app.tools;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import beast.app.BEASTVersion2;
 import beast.app.util.Application;
-import beast.app.util.Utils;
-import beast.app.util.WholeNumberField;
+import beast.core.Input;
 import beast.core.util.Log;
 import beast.evolution.tree.coalescent.CompoundPopulationFunction;
 import beast.evolution.tree.coalescent.CompoundPopulationFunction.Type;
@@ -35,10 +18,23 @@ import beast.util.HeapSort;
 
 
 
-public class EBSPAnalyserApp extends beast.app.tools.EBSPAnalyser {
+public class EBSPAnalyserApp extends beast.core.Runnable {
+	public Input<File> fileInput = new Input<>("file", "file containing EBSP log");
+	public Input<Integer> burninInput = new Input<>("burnin", "percentage of the log file to disregard as burn-in (default 10)", 10);
+	public Input<CompoundPopulationFunction.Type> typeInput = new Input<>("type", "population function type. Should match the one used to generate the EBSP log file", CompoundPopulationFunction.Type.STEPWISE, CompoundPopulationFunction.Type.values());
+	
+	@Override
+	public void initAndValidate() {
+	}
 
-    void parse(String fileName, int burnInPercentage, CompoundPopulationFunction.Type type, PrintStream out) throws IOException {
-        logln("Processing " + fileName);
+	@Override
+    public void run() throws Exception {
+
+		String fileName = fileInput.get().getPath();
+		int burnInPercentage = burninInput.get(); 
+		CompoundPopulationFunction.Type type = typeInput.get(); 
+
+		logln("Processing " + fileName);
         BufferedReader fin = new BufferedReader(new FileReader(fileName));
         String str;
         int data = 0;
@@ -50,9 +46,9 @@ public class EBSPAnalyserApp extends beast.app.tools.EBSPAnalyser {
                 int i = str.indexOf("spec=");
                 if( i > 0 ) {
                    if( str.indexOf("type=\"stepwise\"") > 0 ) {
-                      m_type = Type.STEPWISE;
+                      type = Type.STEPWISE;
                    }  else if( str.indexOf("type=\"linear\"") > 0 ) {
-                      m_type = Type.LINEAR;
+                      type = Type.LINEAR;
                    }
                 }
             }
@@ -107,7 +103,7 @@ public class EBSPAnalyserApp extends beast.app.tools.EBSPAnalyser {
         }
 
         // generate output
-        out.println("time\tmean\tmedian\t95HPD lower\t95HPD upper");
+        //out.println("time\tmean\tmedian\t95HPD lower\t95HPD upper");
         final double[] popSizeAtTimeT = new double[times.size()];
         int[] indices = new int[times.size()];
 
@@ -207,7 +203,11 @@ public class EBSPAnalyserApp extends beast.app.tools.EBSPAnalyser {
         Application.openUrl("file://" + EBSPFile);
     }
     
-    private double calcPopSize(CompoundPopulationFunction.Type type, List<Double> xs, List<Double> ys, double d) {
+    private void logln(String string) {
+		Log.info.println(string);
+	}
+
+	private double calcPopSize(CompoundPopulationFunction.Type type, List<Double> xs, List<Double> ys, double d) {
         // TODO completely untested
         // assume linear
         //assert typeName.equals("Linear");
@@ -242,4 +242,8 @@ public class EBSPAnalyserApp extends beast.app.tools.EBSPAnalyser {
         return 0;
     }
 
+    
+    public static void main(String[] args) throws Exception {
+		new Application(new EBSPAnalyserApp(), "EBSPAnalyse", args);
+	}
 }
