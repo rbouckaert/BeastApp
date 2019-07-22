@@ -5,7 +5,9 @@ BeastApp is a BEAST 2 packages (available from http://beast2.org, source: https:
 
 Getting started:
 ================
-http://rbouckaert.github.io/BeastApp/index.html#/
+Blog post: http://beast2.org/2019/07/23/better-apps-for-the-beast-appstore.html
+
+Slides: http://rbouckaert.github.io/BeastApp/index.html#/
 
 What is here?
 =============
